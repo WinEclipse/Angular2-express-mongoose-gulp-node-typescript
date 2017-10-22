@@ -1,0 +1,139 @@
+<div>
+        <div class="page-header">
+            <h1>
+                用户管理
+            </h1>
+        </div>
+        <div class="row">
+            <div class="toolbar pull-right">
+                <button ng-click="open(#content)" class="btn btn-success">
+                    <span class="glyphicon glyphicon-plus"></span> 添加用户
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover table-striped">
+                    <tr>
+                        <th width="50px">#</th>
+                        <th ng-click="orderBy('username')">用户名 <span
+                        ng-class="orderIcon('username')"></span></th>
+                    <th ng-click="orderBy('name')">昵称 <span
+                        ng-class="orderIcon('displayName')"></span></th>
+                    <th ng-click="orderBy('role')">角色 <span
+                        ng-class="orderIcon('role')"></span></th>
+                    <th>操作</th>
+                    </tr>
+                    <tr *ngFor="let u of users; index as i;" [class.active]="user === selectedUser" (click)="onSelect(user)">
+                        <td>{{i + 1}}</td>
+                        <td>
+                            <div class="text-left">{{u.username}}</div>
+                        </td>
+                        <td>{{u.mail}}</td>
+                        <td>{{u.role}}</td>
+                        <td><a ng-click="delete($i)"><span
+                                    class="glyphicon glyphicon-trash"></span></a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- <uib-pagination boundary-links="true" total-items="totalItems" items-per-page="10" ng-model="p" ng-change="search()" class="uib-pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination> -->
+        <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title">Modal title</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+            </div>
+          </ng-template>
+          
+        <div class="modal fade" id="userDialog" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form name="form" class="form form-horizontal" novalidate>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                添加用户
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group" ng-class="{'has-error':form.username.$invalid && !form.username.$pristine}">
+                                <label class="control-label col-md-3" for="username">用户名</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" id="username" name="username"
+                                           ng-model="newUser.username" ng-required="true" ng-minlength="6" ng-maxlength="20" />
+                                    <div class="help-block" ng-messages="form.username.$error" ng-if="!form.username.$pristine">
+                                        <div ng-messages-include="messages.html"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':form.password.$invalid && !form.password.$pristine}">
+                                <label for="password" class="control-label col-md-3">密码</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="password" id="password" name="password"
+                                           ng-model="newUser.password" ng-required="true" ng-minlength="6" ng-maxlength="20"/>
+                                    <div class="help-block" ng-messages="form.password.$error"  ng-if="!form.password.$pristine">
+                                        <div ng-messages-include="messages.html"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':form.email.$invalid && !form.email.$pristine}">
+                                <label class="control-label col-md-3" for="email">邮件</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="email" id="email" name="email" maxlength="100"
+                                           ng-model="newUser.email" ng-required="true" />
+                                    <div class="help-block" ng-messages="form.email.$error" ng-if="!form.email.$pristine">    
+                                         <div ng-messages-include="messages.html"></div>
+    <!--                                    <div ng-message-exp="'maxlenght'">Email length limit is 100</div>
+                                        <div ng-repeat="errorMessage in errorMessages">
+                                            {{errorMessage|json}}
+                                            <div ng-message-exp="errorMessage.type">
+                                                {{errorMessage.text}}
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':form.name.$invalid && !form.name.$pristine}">
+                                <label class="control-label col-md-3" for="name">昵称}</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="text" id="name" name="name"
+                                           ng-model="newUser.name" ng-required="true" />
+                                    <div class="help-block" ng-messages="form.name.$error" ng-if="!form.name.$pristine">
+                                        <div ng-messages-include="messages.html"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="role">角色</label>
+                                <div class="col-md-6">
+                                    <div class="btn-group btn-group-sm">
+                                        <label class="btn btn-default" ng-class="{'btn-primary':newUser.role == c}"  ng-repeat="c in roleOpts" ng-model="newUser.role" uib-btn-radio="c">{{c}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="modal-footer">
+                            <button type="button" ng-click="save()" class="btn btn-primary btn-lg" ng-disabled='!form.$pristine && form.$invalid'>
+                                保存
+                            </button>
+                            <button type="button" class="btn btn-default btn-lg" ng-click="cancel()">
+                                取消
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    

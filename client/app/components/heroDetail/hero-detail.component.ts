@@ -25,6 +25,7 @@ export class HeroDetailComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log("ngOnInit: ==============");
         this.route.params.forEach((params: Params) => {
             let id = params['id'];
             if (id === 'new') {
@@ -39,6 +40,9 @@ export class HeroDetailComponent implements OnInit {
     }
 
     save() {
+        debugger
+        console.log("heroes:    " + this.hero);
+        console.log("router:  " + this.navigated);
         this.heroService
             .save(this.hero)
             .then(hero => {

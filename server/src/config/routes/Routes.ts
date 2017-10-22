@@ -1,20 +1,20 @@
 /**
  * Created by Moiz.Kachwala on 15-06-2016.
  */
-import express = require('express');
-import path = require('path');
+// import express = require('express');
+// import path = require('path');
 
-import HeroRoutes = require('../routes/HeroRoutes');
+// import HeroRoutes = require('../routes/HeroRoutes');
 
-var app = express();
+// var app = express();
 
-class Routes {
+// class Routes {
 
-    get routes() {
+//     get routes() {
 
-        app.use("/", new HeroRoutes().routes);
+//         app.use("/", new HeroRoutes().routes);
         
-        return app;
-    }
-}
-export = Routes;
+//         return app;
+//     }
+// }
+// export = Routes;

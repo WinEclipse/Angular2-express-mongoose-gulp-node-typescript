@@ -9,8 +9,13 @@ import { routing }       from './app.routing';
 import { HeroesComponent }      from './components/heroes/heroes.component';
 import { DashboardComponent }   from './components/dashboard/dashboard.component';
 import { HeroDetailComponent }  from './components/heroDetail/hero-detail.component';
+import { LoginComponent }      from './components/login/login.component';
+import { UsersComponent }      from './components/users/users.component';
+// import { UserComponent }      from './components/user/user.component';
 
 import { HeroService }  from './services/hero.service';
+import { LoginService }  from './services/login.service';
+import { UserService }  from './services/user.service';
 
 @NgModule({
   imports: [
@@ -23,10 +28,15 @@ import { HeroService }  from './services/hero.service';
     AppComponent,
     HeroesComponent,
     DashboardComponent,
-    HeroDetailComponent
+    HeroDetailComponent,
+    LoginComponent,
+    UsersComponent,
+    // UserComponent
   ],
   providers: [
-    HeroService
+    HeroService,
+    LoginService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

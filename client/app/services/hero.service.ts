@@ -11,11 +11,13 @@ import {Hero} from "../models/hero";
 @Injectable()
 export class HeroService {
 
-    private heroesUrl = 'api/heroes';  // URL to web api
+    private heroesUrl = 'http://localhost:8080/api/heroes/aaaaa';  // URL to web api
 
     constructor(private http: Http) { }
 
     getHeroes(): Promise<Hero[]> {
+        console.log("http options:    " + this.http.options);
+        console.log("http:  " + this.http);
         return this.http.get(this.heroesUrl)
             .toPromise()
             .then(response => response.json())
@@ -23,6 +25,8 @@ export class HeroService {
     }
 
     getHero(id: string) {
+        console.log("http options:    " + this.http.options);
+        console.log("http:  " + this.http);
         return this.http.get(this.heroesUrl + '/' + id)
             .toPromise()
             .then(response => response.json())
@@ -30,6 +34,8 @@ export class HeroService {
     }
 
     save(hero: Hero): Promise<Hero>  {
+        console.log("http options:    " + this.http.options);
+        console.log("http:  " + this.http);
         if (hero._id) {
             return this.put(hero);
         }

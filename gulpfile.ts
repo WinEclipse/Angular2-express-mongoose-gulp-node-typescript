@@ -145,7 +145,7 @@ gulp.task('watch', function () {
         console.log('TypeScript file ' + e.path + ' has been changed. Compiling.');
     });
 
-    gulp.watch(["client/**/*.html", "client/**/*.css"], ['clientResources']).on('change', function (e) {
+    gulp.watch(["client/**/*.html", "client/**/*.css", "client/**/*.ico"], ['clientResources']).on('change', function (e) {
         console.log('Resource file ' + e.path + ' has been changed. Updating.');
     });
 
@@ -158,7 +158,7 @@ gulp.task('watch', function () {
  * Build the project.
  * 1. Clean the build directory
  * 2. Build Express server
- * 3. Build the Angular app
+ * 3. Build the Angular appccccc
  * 4. Copy the resources
  * 5. Copy the dependencies.
  */

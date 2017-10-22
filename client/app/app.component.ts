@@ -6,5 +6,5 @@ import {Component} from '@angular/core';
 })
 
 export class AppComponent {
-    title = 'Tour of Heroes';
+    title = 'Angualr4.0 & Bootstrap3.7 Demo';
 }
